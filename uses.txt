@@ -1,0 +1,211 @@
+# Diabetes Prediction Using Machine Learning
+
+## Objective
+
+### Techniques Used
+
+- Data Cleaning
+- Data Visualization
+- Machine Learning Modeling
+
+### Algortihms Used
+
+1. Logistic Regression
+2. Support Vector Machine
+3. KNN
+4. Random Forest Classifier 
+5. Naivye Bayes
+6. Gradient Boosting
+
+### Model Evaluation Methods Used
+
+1. Accuracy Score
+2. ROC AUC Curve
+3. Cross Validation
+4. Confusion Matrix
+
+## Guide Lines 
+
+### Packages and Tools Required:
+```
+Pandas 
+Matplotlib
+Seaborn
+Scikit Learn
+Jupyter Notebook
+```
+### Package Installation
+```
+pip install numpy
+pip install pandas
+pip install seaborn
+pip install scikit-learn
+pip install matplotlib
+```
+Refrences- Dataset downloaded from kaggle 
+           
+#Gradient Boosting Classifier
+from sklearn.ensemble import GradientBoostingClassifier
+clf=GradientBoostingClassifier(n_estimators=50,learning_rate=0.2)
+clf.fit(train_X,train_y)
+y_pred=clf.predict(test_X)
+#find accuracy
+ac=accuracy_score(test_y,y_pred)
+acc.append(ac)
+
+#find the ROC_AOC curve
+rc=roc_auc_score(test_y,y_pred)
+roc.append(rc)
+print("\nAccuracy {0} ROC {1}".format(ac,rc))
+
+#cross val score
+result=cross_validate(clf,train_X,train_y,scoring=scoring,cv=10)
+display_result(result)
+
+#display predicted values uncomment below line
+#pd.DataFrame(data={'Actual':test_y,'Predicted':y_pred}).head()
+
+#Naive Bayes Theorem
+#import library
+from sklearn.naive_bayes import GaussianNB
+
+clf=GaussianNB()
+clf.fit(train_X,train_y)
+y_pred=clf.predict(test_X)
+#find accuracy
+ac=accuracy_score(test_y,y_pred)
+acc.append(ac)
+
+#find the ROC_AOC curve
+rc=roc_auc_score(test_y,y_pred)
+roc.append(rc)
+print("\nAccuracy {0} ROC {1}".format(ac,rc))
+
+#cross val score
+result=cross_validate(clf,train_X,train_y,scoring=scoring,cv=10)
+display_result(result)
+
+#display predicted values uncomment below line
+#pd.DataFrame(data={'Actual':test_y,'Predicted':y_pred}).head()
+
+#Random forest
+from sklearn.ensemble import RandomForestClassifier
+
+clf=RandomForestClassifier()
+clf.fit(train_X,train_y)
+
+y_pred=clf.predict(test_X)
+#find accuracy
+ac=accuracy_score(test_y,y_pred)
+acc.append(ac)
+
+#find the ROC_AOC curve
+rc=roc_auc_score(test_y,y_pred)
+roc.append(rc)
+print("\nAccuracy {0} ROC {1}".format(ac,rc))
+
+#cross val score
+result=cross_validate(clf,train_X,train_y,scoring=scoring,cv=10)
+display_result(result)
+
+#display predicted values uncomment below line
+#pd.DataFrame(data={'Actual':test_y,'Predicted':y_pred}).head()
+
+#KNN
+
+from sklearn.neighbors import KNeighborsClassifier
+
+clf=KNeighborsClassifier(n_neighbors=3)
+clf.fit(train_X,train_y)
+y_pred=clf.predict(test_X)
+#find accuracy
+ac=accuracy_score(test_y,y_pred)
+acc.append(ac)
+
+#find the ROC_AOC curve
+rc=roc_auc_score(test_y,y_pred)
+roc.append(rc)
+print("\nAccuracy {0} ROC {1}".format(ac,rc))
+
+#cross val score
+result=cross_validate(clf,train_X,train_y,scoring=scoring,cv=10)
+display_result(result)
+
+#display predicted values uncomment below line
+#pd.DataFrame(data={'Actual':test_y,'Predicted':y_pred}).head()
+
+#Support Vector Machine
+from sklearn.svm import SVC
+
+clf=SVC(kernel='linear')
+clf.fit(train_X,train_y)
+y_pred=clf.predict(test_X)
+#find accuracy
+ac=accuracy_score(test_y,y_pred)
+acc.append(ac)
+
+#find the ROC_AOC curve
+rc=roc_auc_score(test_y,y_pred)
+roc.append(rc)
+print("\nAccuracy {0} ROC {1}".format(ac,rc))
+
+#cross val score
+result=cross_validate(clf,train_X,train_y,scoring=scoring,cv=10)
+display_result(result)
+
+#display predicted values uncomment below line
+#pd.DataFrame(data={'Actual':test_y,'Predicted':y_pred}).head()
+
+#Lets build the model
+
+#Logistic Regression
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_auc_score
+
+acc=[]
+roc=[]
+
+clf=LogisticRegression()
+clf.fit(train_X,train_y)
+y_pred=clf.predict(test_X)
+#find accuracy
+ac=accuracy_score(test_y,y_pred)
+acc.append(ac)
+
+#find the ROC_AOC curve
+rc=roc_auc_score(test_y,y_pred)
+roc.append(rc)
+print("\nAccuracy {0} ROC {1}".format(ac,rc))
+
+#cross val score
+result=cross_validate(clf,train_X,train_y,scoring=scoring,cv=10)
+display_result(result)
+
+#display predicted values uncomment below line
+#pd.DataFrame(data={'Actual':test_y,'Predicted':y_pred}).head()
+
+from sklearn.metrics import confusion_matrix,accuracy_score,make_scorer
+from sklearn.model_selection import cross_validate
+
+def tn(y_true, y_pred): return confusion_matrix(y_true, y_pred)[0, 0]
+def fp(y_true, y_pred): return confusion_matrix(y_true, y_pred)[0, 1]
+def fn(y_true, y_pred): return confusion_matrix(y_true, y_pred)[1, 0]
+def tp(y_true, y_pred): return confusion_matrix(y_true, y_pred)[1, 1]
+
+#cross validation purpose
+scoring = {'accuracy': make_scorer(accuracy_score),'prec': 'precision'}
+scoring = {'tp': make_scorer(tp), 'tn': make_scorer(tn),
+           'fp': make_scorer(fp), 'fn': make_scorer(fn)}
+
+def display_result(result):
+    print("TP: ",result['test_tp'])
+    print("TN: ",result['test_tn'])
+    print("FN: ",result['test_fn'])
+    print("FP: ",result['test_fp'])
+
+    sns.set(style="ticks")
+sns.pairplot(df, hue="Outcome")
+
+#box plot for outlier visualization
+sns.set(style="whitegrid")
+df.boxplot(figsize=(15,6))s
